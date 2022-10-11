@@ -2,7 +2,7 @@ using NetCDF
 using Statistics, StatsBase, LinearAlgebra
 using Plots, Dates
 
-DATA_PATH = joinpath(@__DIR__, "data")
+DATA_PATH = joinpath(@__DIR__, "../data")
 FIGURE_PATH = joinpath(@__DIR__, "figures")
 
 pier_data_filepath(year::Int) = joinpath(DATA_PATH, "scripps_pier-$year.nc")
