@@ -8,7 +8,7 @@ function [out] = orthogdemo(n,m)
 %           product --> wave1*wave2
 %           integral --> integral of product over time vector
 
-    out.time = 0:0.01:2*pi;
+    out.time = 0:0.01:1;
     out.wave1 = sin(2*pi*n.*out.time);
     out.wave2 = sin(2*pi*m.*out.time);
     out.product = out.wave1.*out.wave2;
