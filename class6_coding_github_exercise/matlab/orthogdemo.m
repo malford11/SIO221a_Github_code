@@ -15,5 +15,4 @@ function [out] = orthogdemo(n,m)
     out.integral = trapz(out.time,out.product);
     out.n;
     out.m;
-    %maybe comment better next time!!
 end
