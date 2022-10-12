@@ -13,4 +13,6 @@ function [out] = orthogdemo(n,m)
     out.wave2 = sin(2*pi*m.*out.time);
     out.product = out.wave1.*out.wave2;
     out.integral = trapz(out.time,out.product);
+    out.n;
+    out.m;
 end
