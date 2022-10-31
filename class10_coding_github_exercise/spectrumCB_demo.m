@@ -2,7 +2,7 @@ function [f,a] = spectrumCB_demo(time, data, chunk)
 
 %split into chunks
 ind1 = 1;
-for i=1:floor(chunk\data)
+for i=1:floor(chunk\length(data))
     data1(:,i) = data(ind1:ind1+chunk);
     ind1 = ind1+chunk/2;
 end
