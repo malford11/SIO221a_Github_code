@@ -1,4 +1,4 @@
-function [f,a] = spectrum(time, data, chunk)
+function [f,a] = spectrumCB_demo(time, data, chunk)
 
 %split into chunks
 ind1 = 1;
