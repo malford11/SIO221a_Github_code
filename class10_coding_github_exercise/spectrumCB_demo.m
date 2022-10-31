@@ -1,10 +1,8 @@
 function [f,a] = spectrum(time, data, chunk)
 
-chunk = 1600; %hardcoding for this class demo ;)
-
 %split into chunks
 ind1 = 1;
-for i=1:10
+for i=1:floor(chunk\data)
     data1(:,i) = data(ind1:ind1+chunk);
     ind1 = ind1+chunk/2;
 end
