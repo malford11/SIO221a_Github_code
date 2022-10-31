@@ -6,4 +6,5 @@ x = inv(A_fit'*A_fit)*A_fit'*data;
 data_fit = A_fit*x;
 x(6) = norm(x(4:5));
 
+
 end 
