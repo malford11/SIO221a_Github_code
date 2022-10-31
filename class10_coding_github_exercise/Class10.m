@@ -1,4 +1,4 @@
-function Class10(ChunkSize)
+function [df] = Class10(ChunkSize)
 %Class10 Plots mean spectrum
 load class10_record.mat %load data
 df = class10_record;
