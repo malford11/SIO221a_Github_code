@@ -1,4 +1,4 @@
-function [f,a] = spectrumCB_demo(time, data, chunk)
+function [f,a,Parseval] = spectrumCB_demo(time, data, chunk)
 
 %split into chunks
 ind1 = 1;
@@ -18,7 +18,7 @@ f = 0:df:fn; % frequency vector [cpd]
 
 %compute spectrum of each chunk and average
 for i=1:length(data1(1,:))
-    data2(:,i) = data1(:,i)-mean(data1(:,i));
+    data2(:,i) = detrend(data1(:,i));
     a = fft(data2(:,i));
     amp=abs(a(1:(N+1)/2)).^2; %take half of spectrum and square
     amp = amp / N.^2; % MATLAB normalization
@@ -28,5 +28,9 @@ for i=1:length(data1(1,:))
 end
 a = mean(A,2);
 
+%check Parseval's theorem
+variance=std(data)^2;
+int_spec = trapz(f,a);
+Parseval=int_spec/variance;
 
 end
