@@ -10,17 +10,16 @@ function [fft_amplitude,frequency_vector] = Okun_Lecture10(data,time,num_chunks)
     data = fillmissing(data,'linear');
     data=detrend(data);
     
-    % Find nice number for points per chunk
-    points_per_chunk = floor(length(data)/num_chunks);
+    % Reorder into chunks
+    points_per_chunk = floor(length(data)/num_chunks); % Find nice number for points per chunk
     
     % Make length of chunks even if not
-    if mod(points_per_chunk,2)
-        points_per_chunk = points_per_chunk - 1;
-    end
     
-    % Reshape data into chunks
+
     data_chunks = reshape(data(1:points_per_chunk*num_chunks),[],num_chunks);
     
+
+
     % Remove mean from data
     data_chunks = data_chunks - mean(data_chunks);
 
