@@ -31,7 +31,7 @@ function [fft_amplitude,frequency_vector] = Okun_Lecture10(data,time,num_chunks)
     end
     
     % Create frequency vector
-    dt=mean(diff(time),'omitnan');
+    dt=mean(diff(time),'omitnan')/24/60;
     fft_amplitude = mean(fft_amplitude,2);
     time_span=dt*points_per_chunk; % Find time span in series
     df=1/time_span; % Frequency resolution

@@ -4,22 +4,23 @@
 % Output is is fft coefficients with units (data_units)^2/(1/time_units)
 % and frequency vector with units 1/time_units
 
-function [fft_amplitude,frequency_vector] = Okun_Lecture10(data,time,num_chunks)
+function [fft_amplitude,frequency_vector] = Okun_Lecture10_Hanning(data,time,num_chunks)
     
     % Fill gaps in data and detrend    
     data = fillmissing(data,'linear');
     data=detrend(data);
     
-    % Reorder into chunks
-    points_per_chunk = floor(length(data)/num_chunks); % Find nice number for points per chunk
+    % Find nice number for points per chunk
+    points_per_chunk = floor(length(data)/num_chunks);
     
     % Make length of chunks even if not
+    if mod(points_per_chunk,2)
+        points_per_chunk = points_per_chunk - 1;
+    end
     
-
+    % Reshape data into chunks
     data_chunks = reshape(data(1:points_per_chunk*num_chunks),[],num_chunks);
     
-
-
     % Remove mean from data
     data_chunks = data_chunks - mean(data_chunks);
 
