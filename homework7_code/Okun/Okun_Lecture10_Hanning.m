@@ -4,7 +4,7 @@
 % Output is is fft coefficients with units (data_units)^2/(1/time_units)
 % and frequency vector with units 1/time_units
 
-function [fft_amplitude,frequency_vector] = Okun_Lecture10(data,time,num_chunks)
+function [fft_amplitude,frequency_vector] = Okun_Lecture10_Hanning(data,time,num_chunks)
     
     % Fill gaps in data and detrend    
     data = fillmissing(data,'linear');
@@ -31,7 +31,7 @@ function [fft_amplitude,frequency_vector] = Okun_Lecture10(data,time,num_chunks)
     end
     
     % Create frequency vector
-    dt=mean(diff(time),'omitnan')/24/60;
+    dt=mean(diff(time),'omitnan');
     fft_amplitude = mean(fft_amplitude,2);
     time_span=dt*points_per_chunk; % Find time span in series
     df=1/time_span; % Frequency resolution
