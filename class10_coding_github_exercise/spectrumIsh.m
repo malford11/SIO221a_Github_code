@@ -1,5 +1,6 @@
 function [f, spectrum, p] = spectrumIsh(time, data, n, overlap, flag)
 %function for computing the spectrum from a given data series
+%with options for overlap and Hann window
 %ishwari %23 Nov 22
 
 %%% inputs %%%
