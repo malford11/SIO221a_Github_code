@@ -48,9 +48,9 @@ end
 
 %windowing
 if flag == 1
-    hanwin = cos(pi*T/ l*tdiff).^2;             %defining Hanning window
-    hanwin = hanwin/(std(hanwin)*sqrt(8/3));    %normalizing
-    A(1:end,:) = hanwin(1:end,:).*A(1:end,:);   %convolving
+    hanwin = cos(pi*T/ (l*tdiff)).^2;             %defining Hanning window
+    hanwin = hanwin/sqrt(8/3);                    %normalizing
+    A(1:end,:) = hanwin(1:end,:).*A(1:end,:);     %convolving
 end
 A = detrend(A);
 
