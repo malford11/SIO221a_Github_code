@@ -7,17 +7,17 @@
 function [spec_ave,spec,f,data] = Liu_lecture10_func(time,data_input,sample_int)
 
 dt=mean(diff(time),'omitnan');
-
+data_input = detrend(data_input);
 n_int = floor(length(data_input)/sample_int);
 data_mod = data_input(1:n_int*sample_int);
 
-data = reshape(data_mod,[n_int,sample_int]);
+data = reshape(data_mod,[sample_int,n_int]);
 
 % f = zeros(n_int,length(data(1,:)));
 % spec =  zeros(n_int,length(data(1,:)));
     for j = 1:n_int
 
-       [f(j,:),spec(j,:)] = fft_data(detrend(data(j,:)),dt);
+       [f(j,:),spec(j,:)] = fft_data(data(:,j),dt);
     end 
     
 spec_ave = mean(spec,1);
