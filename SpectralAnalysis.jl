@@ -114,11 +114,11 @@ module SpectralAnalysis
     end
     
     """
-        spectrum(data, time; segment_size = 60, demean = true, detrend = true, hanning = false)
+        spectrum(data, time, T_segment; demean = true, detrend = true, hanning = false)
     
     data - data vector
     time - time vector
-    sample_interval - number of days to include in a segment
+    T_segment - period of the data per segment
     de_mean - boolean; if true, removes the mean from the data
     de_trend - boolean; if true, removes the trend from the data
     hanning - boolean; if true, applies a hanning window to segments
@@ -130,9 +130,9 @@ module SpectralAnalysis
         T = segment_time[end,1] - segment_time[1,1] # segment sample period
         Δt = time[2] - time[1] # the sample interval size [days]
         Δf, fₙ = frequencies(T, Δt)
-        freq = Δf:Δf:(fₙ + Δf)
+        freq = 0:Δf:(fₙ + Δf)
         spectra, uncertainty = spectrum(segment_data, Δf)
-        return spectra, freq, uncertainty
+        return spectra[2:end], freq[2:end], uncertainty # remove 0 frequency
     end
     
     function spectrum(segment_data, Δf)
@@ -144,8 +144,9 @@ module SpectralAnalysis
         data_energy = mapslices(x -> mean(x.^2) / segment_size, segment_data, dims = [1])
         @info "Parseval Check -- data energy: $(mean(data_energy)), spectral energy: $(mean(spectral_energy))"
 
-        μ_X = mean(X, dims = 2)
-        spectra = Φ(μ_X, Δf)[1:Int(segment_size / 2)]
+        Φ_X = mapslices(x -> Φ(x, Δf), X, dims = [1])
+        iseven(segment_size) ? N = Int((segment_size / 2) + 1) : N = Int((segment_size + 1) / 2)
+        spectra = 2 .* Φ_X[1:N] # multiply by 2 to correct for lost variance
         uncertainty = spectral_uncertainty(n_segments)
         return spectra, uncertainty
     end
